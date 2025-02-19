@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const movieInput = document.querySelector(".text-box"); 
     const addMovieBtn = document.querySelector(".submit-but"); 
     const movieList = document.getElementById("movieList"); 
-    const clearListBtn = document.createElement("clear");
+    const clearListBtn = document.createElement("button"); 
 
     let movies = [];
 
@@ -20,12 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".box").appendChild(clearListBtn);
 
     function updateList() {
-        movieList.innerHTML = "";
+        movieList.innerHTML = ""; 
 
-        movies.forEach((movie) => {
+        movies.forEach((movie, index) => {
             const li = document.createElement("li"); 
             li.textContent = movie;
             li.classList.add("text");
+            li.style.cursor = "pointer"; 
+            li.addEventListener("click", () => removeMovie(index)); 
             movieList.appendChild(li);
         });
 
@@ -43,6 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function removeMovie(index) {
+        movies.splice(index, 1); 
+        updateList();
+    }
+
     function clearList() {
         movies = []; 
         updateList(); 
@@ -51,4 +58,3 @@ document.addEventListener("DOMContentLoaded", () => {
     addMovieBtn.addEventListener("click", addMovie);
     clearListBtn.addEventListener("click", clearList); 
 });
- 
